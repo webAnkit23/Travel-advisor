@@ -29,7 +29,7 @@ export default function Map({center ,setCenter ,setBounds,places}) {
         onChildClick={() =>{
         }}
         >
-          {places?.map((place,i) =>{
+          {places?.slice(0,10).map((place,i) =>{
             return  <MapCard lat = {Number(place.latitude)} lng = {Number(place.longitude)} key={i} place={place}/>    
           })}
       </GoogleMapReact>
@@ -39,18 +39,19 @@ export default function Map({center ,setCenter ,setBounds,places}) {
 
 function MapCard({place}){
   const number = Math.ceil(Number(place?.rating||3));
-  console.log(number);
    return (
-    <div style={{background:'red' ,zIndex :'1000000',position:'absolute'}}>
-    <span>{place?.name||'sfbdg'}</span>
-    <img src={place?.photo?.images?.small?.url}></img>
+   
+    <div className='mapChild' style={{background:'white' ,zIndex :'1000000'}}>
+      <img src={place?.photo?.images?.small?.url}></img>
+    <span className='mapName'>{place?.name||'sfbdg'}</span>
     <div className="rating">
-  <span><img src={number>=1?fillStar:emptyStar}/></span>
-  <span><img src={number>=2?fillStar:emptyStar}/></span>
-  <span><img src={number>=3?fillStar:emptyStar}/></span>
-  <span><img src={number>=4?fillStar:emptyStar}/></span>
-  <span><img src={number>=5?fillStar:emptyStar}/></span>
- </div>
+    <span><img src={number>=1?fillStar:emptyStar}/></span>
+    <span><img src={number>=2?fillStar:emptyStar}/></span>
+    <span><img src={number>=3?fillStar:emptyStar}/></span>
+    <span><img src={number>=4?fillStar:emptyStar}/></span>
+    <span><img src={number>=5?fillStar:emptyStar}/></span>
+    </div>
+   
  </div>
     );
 }
