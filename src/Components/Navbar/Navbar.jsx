@@ -3,12 +3,14 @@ import './Navbar.css'
 import { IoLocationOutline } from "react-icons/io5";
 import {getLocation} from '../../Apis/location';
 import useDebounce from '../../Hooks/UseDebouce';
-export default function Navbar({handleUserLocation,setCenter}) {
+import { useUserLocation } from '../../Context/UserLocationContext';
+export default function Navbar({setCenter}) {
   const [query,setQuery] = useState('');
   const [suggestion ,setSuggestion] = useState(null);
   const [showSuggestion ,setShowSuggestion] =useState(false);
    const debounceValue = useDebounce(query,500);
    const inputRef = useRef();
+   const userLocation = useUserLocation();
    useEffect(() =>{
     if(debounceValue){
      fetchSuggestions(debounceValue);
@@ -30,13 +32,12 @@ export default function Navbar({handleUserLocation,setCenter}) {
       console.log(err);
     }) 
   }
-  
-  const handleOutsideClick = (event) => {
-    if (inputRef.current && !inputRef.current.contains(event.target)) {
-      setShowSuggestion(false);
-    }
-  };
   useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (inputRef.current && !inputRef.current.contains(event.target)) {
+        setShowSuggestion(false);
+      }
+    };
     document.addEventListener('click', handleOutsideClick);
     return () => {
       document.removeEventListener('click', handleOutsideClick);
@@ -46,9 +47,11 @@ export default function Navbar({handleUserLocation,setCenter}) {
           setCenter({lat : city.latitude ,lng : city.longitude});
           setQuery('');
           setSuggestion(null);
-
   }
-
+  const handleUserLocation =() =>{
+    console.log(userLocation);
+    setCenter({lat:userLocation.lat ,lng : userLocation.lng});
+   }
   return (
     <div className="nav_container">
         <nav>

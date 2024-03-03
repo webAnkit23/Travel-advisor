@@ -4,9 +4,10 @@ import fillStar from '../../assets/fillStar.png';
 import emptyStar from '../../assets/emptyStar.png'
 export default function Card({place}) {
   const number = Math.ceil(Number(place?.rating||0));
+ 
   
   return (
-    <div className='cardContainer'>
+    <div   className='cardContainer'>
       <div className="imageContainer">
         <img src={place?.photo?.images?.medium?.url}></img>
       </div>

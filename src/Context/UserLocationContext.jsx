@@ -1,8 +1,6 @@
 
 import { useEffect,useState,useContext,createContext } from "react";
-
-
-const userLocationContext = createContext({lat: 0 ,lng:0});
+const userLocationContext = createContext();
 
 export const useUserLocation =() =>{
     return useContext(userLocationContext);
@@ -14,7 +12,7 @@ export const LocationProvider =({children})=>{
                 setUserLocation({lat : data.coords.latitude , lng : data.coords.longitude});
         }
         function reject(err){
-              console.log(err);
+             alert(err);
         }
             navigator.geolocation.getCurrentPosition(resolve ,reject);
     },[]);

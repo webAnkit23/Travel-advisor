@@ -1,9 +1,11 @@
 
 .MapCard{
-    background: #e4e4e4;
+ background-color: white;
     border-radius: 5px;
+    z-index: 1;
     width: 120px;
     box-shadow: 0.1px 0.1px 6px #aca8a8;
+    transition: all .4s;
 }
 .MapCard>img{
     border-radius: 5px;
@@ -14,4 +16,12 @@
     margin: 0px;
     font-weight: 600;
     font-family: math;
+}
+.rating{
+    background-color: white;
+}
+.MapCard:hover{
+    z-index: 100;
+    transform: scale(1.2);
+    position: absolute;
 }

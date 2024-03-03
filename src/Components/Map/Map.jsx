@@ -3,7 +3,7 @@ import GoogleMapReact from 'google-map-react';
 import fillStar from '../../assets/fillStar.png';
 import emptyStar from '../../assets/emptyStar.png';
 import './Map.css'
-export default function Map({center ,setCenter ,setBounds,places}) {
+export default function Map({placesRef ,center ,setCenter ,setBounds,places}) {
   const defaultProps = {
     center: {
       lat: 10.99835602,
@@ -14,7 +14,6 @@ export default function Map({center ,setCenter ,setBounds,places}) {
     setCenter({lat : e.center.lat,lng :e.center.lng}); 
     setBounds({ne: e.marginBounds.ne ,sw : e.marginBounds.sw});
   }
-  
   return (
     <div style={{width:'100%',height : '85vh'}} className='mapContainer'>
       <GoogleMapReact  bootstrapURLKeys={{ key: "AIzaSyDmbvtQjMzbHFFQVhIqT9_39vm-SzxWjWM" }}
@@ -25,24 +24,28 @@ export default function Map({center ,setCenter ,setBounds,places}) {
         onChange={(e) =>{
            handleChange(e);
         }}
-        onChildClick={() =>{
+        onChildClick={(e) =>{
         }}
         >
           {places?.slice(0,10).map((place,i) =>{
-            return  <MapCard lat = {Number(place.latitude)} lng = {Number(place.longitude)} key={i} place={place}/>    
+            return  <MapCard refe ={placesRef.current[i]} lat = {Number(place.latitude)} lng = {Number(place.longitude)} key={i} place={place}/>    
           })}
       </GoogleMapReact>
     </div>
   )
 }
 
-function MapCard({place}){
+function MapCard({place,refe}){
   const number = Math.ceil(Number(place?.rating||3));
+  let handleClick =() =>{
+    console.log(refe);
+    refe?.scrollIntoView({behavior : 'smooth'});
+  };
    return (
-    <div class="MapCard">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfJaRa4aYqkK3BWCfB1fOpbNffXCJq_2cg1j9ZNvWIew&s" />
+    <div  onClick={handleClick} className="MapCard">
+    <img src={place?.photo?.images?.small.url||'https://www.allduniv.ac.in/public/assets/uploads/media-uploader/history-11613540564.png'} />
     <div>
-     <p>Allahabad University</p>
+     <p>{place?.name||'unknown'}</p>
      <div className="rating">
     <span><img src={number>=1?fillStar:emptyStar}/></span>
     <span><img src={number>=2?fillStar:emptyStar}/></span>
@@ -51,8 +54,6 @@ function MapCard({place}){
     <span><img src={number>=5?fillStar:emptyStar}/></span>
     </div>
     </div>
- </div>
-    
-   
+ </div>  
     );
 }
