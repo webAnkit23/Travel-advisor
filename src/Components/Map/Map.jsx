@@ -3,7 +3,6 @@ import GoogleMapReact from 'google-map-react';
 import fillStar from '../../assets/fillStar.png';
 import emptyStar from '../../assets/emptyStar.png';
 import './Map.css'
-
 export default function Map({center ,setCenter ,setBounds,places}) {
   const defaultProps = {
     center: {
