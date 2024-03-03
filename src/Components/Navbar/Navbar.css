@@ -1,0 +1,79 @@
+.nav_container{
+    background: #55b0b4;
+    height: 70px;
+}
+.nav_container>nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+.nav_container>nav>h3{
+    color: white;
+}
+.nav_inputBox{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.innerBox>input{
+    width: 300px;
+    border-radius: 10px;
+    border: none;
+    height: 25px;
+    padding: 5px;
+    font-size: 15px;
+    color: grey;
+    font-weight: 100;
+    
+}
+.myLocation{
+    color: grey;
+    transition: all .3s;
+}
+.innerBox>input:focus{
+    outline: none;
+}
+.myLocation:hover{
+    color: #183c52;
+   height: 30px;
+   width: 30px;
+}
+.suggestionList{
+    position: absolute;
+    width: 300px;
+    background: #acc7d7;
+    border-radius: 5px;
+    z-index: 10000000;
+}
+.suggestionList>div{
+    padding: 0px 10px;
+    margin: 2px;
+    border-radius: 5px;
+   
+}
+.suggestionList>div:hover{
+    background: rgb(227, 225, 225);
+}
+
+@media only screen and (max-width:580px){
+    .nav_container>nav{
+        flex-direction: column;
+    }
+    .nav_container{
+        height: auto;
+        padding-bottom: 10px;
+    }
+    .nav_inputBox{
+        width: 100%;
+    }
+    .innerBox{
+        width: 100%;
+    }
+    .innerBox>input{
+        width: 100%;
+    }
+    .suggestionList{
+        width: 75%;
+    }
+}
