@@ -39,18 +39,20 @@ export default function Map({center ,setCenter ,setBounds,places}) {
 function MapCard({place}){
   const number = Math.ceil(Number(place?.rating||3));
    return (
-   
-    <div className='mapChild' style={{background:'white' ,zIndex :'1000000'}}>
-      <img src={place?.photo?.images?.small?.url}></img>
-    <span className='mapName'>{place?.name||'sfbdg'}</span>
-    <div className="rating">
+    <div class="MapCard">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfJaRa4aYqkK3BWCfB1fOpbNffXCJq_2cg1j9ZNvWIew&s" />
+    <div>
+     <p>Allahabad University</p>
+     <div className="rating">
     <span><img src={number>=1?fillStar:emptyStar}/></span>
     <span><img src={number>=2?fillStar:emptyStar}/></span>
     <span><img src={number>=3?fillStar:emptyStar}/></span>
     <span><img src={number>=4?fillStar:emptyStar}/></span>
     <span><img src={number>=5?fillStar:emptyStar}/></span>
     </div>
-   
+    </div>
  </div>
+    
+   
     );
 }
