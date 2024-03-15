@@ -28,7 +28,10 @@ export default function Map({placesRef ,center ,setCenter ,setBounds,places}) {
         }}
         >
           {places?.slice(0,10).map((place,i) =>{
-            return  <MapCard refe ={placesRef.current[i]} lat = {Number(place.latitude)} lng = {Number(place.longitude)} key={i} place={place}/>    
+            return <div lat = {Number(place.latitude)} lng = {Number(place.longitude)} key={i}>
+                   <MapCard refe ={placesRef.current[i]}  place={place}/>    
+            </div>
+            
           })}
       </GoogleMapReact>
     </div>

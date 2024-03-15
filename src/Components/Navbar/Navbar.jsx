@@ -7,7 +7,6 @@ import { useUserLocation } from '../../Context/UserLocationContext';
 export default function Navbar({setCenter}) {
   const [query,setQuery] = useState('');
   const [suggestion ,setSuggestion] = useState(null);
-  const [showSuggestion ,setShowSuggestion] =useState(false);
    const debounceValue = useDebounce(query,500);
    const inputRef = useRef();
    const userLocation = useUserLocation();
@@ -22,11 +21,10 @@ export default function Navbar({setCenter}) {
   const handleChange = (e) =>{
     setQuery(e.target.value);    
   }
-  const fetchSuggestions = () =>{
-    getLocation(debounceValue)
+  const fetchSuggestions = (val) =>{
+    getLocation(val)
     .then((data) =>{
       setSuggestion(data);
-      setShowSuggestion(true);
     })
     .catch(err =>{
       console.log(err);
@@ -35,7 +33,7 @@ export default function Navbar({setCenter}) {
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (inputRef.current && !inputRef.current.contains(event.target)) {
-        setShowSuggestion(false);
+        setSuggestion(null);
       }
     };
     document.addEventListener('click', handleOutsideClick);
@@ -49,8 +47,7 @@ export default function Navbar({setCenter}) {
           setSuggestion(null);
   }
   const handleUserLocation =() =>{
-    console.log(userLocation);
-    setCenter({lat:userLocation.lat ,lng : userLocation.lng});
+    setCenter({lat:userLocation.lat,lng : userLocation.lng});
    }
   return (
     <div className="nav_container">
@@ -61,7 +58,7 @@ export default function Navbar({setCenter}) {
             <div className="innerBox" ref = {inputRef}>
                 <input type='text' placeholder='Search Location...' value={query} onChange={(e) =>handleChange(e)}></input>
                 <div className="suggestionList">
-                    {showSuggestion&&suggestion?.data?.map((city,i) =>{
+                    {suggestion&&suggestion?.data?.map((city,i) =>{
                      return <div key={i} onClick={() =>handleSuggestionClick(city)}>{city?.name}</div>   
                     })}
                 </div>

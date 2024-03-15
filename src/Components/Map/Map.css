@@ -6,6 +6,7 @@
     width: 120px;
     box-shadow: 0.1px 0.1px 6px #aca8a8;
     transition: all .4s;
+    position: absolute;
 }
 .MapCard>img{
     border-radius: 5px;
